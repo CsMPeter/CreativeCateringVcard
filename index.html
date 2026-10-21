@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Catering - Carte de Vizită Digitală</title>
+  
+  <!-- Raleway betűtípus importálása -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Ikonok -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- QRCode.js könyvtár -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    :root {
+      --primary-color: #E84819;
+      --primary-hover: #d23b0f;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-main: #2d3748;
+      --text-muted: #718096;
+      --border-color: #e2e8f0;
+      --font-family: 'Raleway', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(232, 72, 25, 0.08), 0 10px 20px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+      border: 1px solid rgba(232, 72, 25, 0.1);
+    }
+
+    .header-banner {
+      background: linear-gradient(135deg, rgba(232, 72, 25, 0.15) 0%, rgba(232, 72, 25, 0.05) 100%);
+      height: 120px;
+      position: relative;
+    }
+
+    .logo-container {
+      width: 130px;
+      height: 130px;
+      margin: -65px auto 15px;
+      background: #ffffff;
+      border-radius: 50%;
+      padding: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-container img, .logo-container svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .company-info {
+      text-align: center;
+      padding: 0 24px 20px;
+    }
+
+    .company-name {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary-color);
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .company-tagline {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .company-description {
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 0 24px 24px;
+    }
+
+    .btn-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      grid-column: span 2;
+      box-shadow: 0 4px 14px rgba(232, 72, 25, 0.3);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: #fff4f0;
+      color: var(--primary-color);
+      border: 1px solid rgba(232, 72, 25, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background-color: #ffe8df;
+    }
+
+    .contacts-list {
+      padding: 0 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 16px;
+      background: #fafafa;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: background 0.2s ease;
+      border: 1px solid var(--border-color);
+    }
+
+    .contact-item:hover {
+      background: #f0f0f0;
+    }
+
+    .contact-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .contact-value {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .qr-section {
+      background: #fafafa;
+      padding: 24px;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .qr-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    #qrcode {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    #qrcode img {
+      padding: 10px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header-banner"></div>
+  
+  <div class="logo-container">
+    <!-- Creative Catering Vektor Logó (Raleway stílussal) -->
+    <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 140 210 A 110 110 0 0 1 360 210 L 360 330 C 360 335 355 340 350 340 L 150 340 C 145 340 140 335 140 330 Z" stroke="#E84819" stroke-width="12" fill="none"/>
+      <path d="M 180 130 L 180 250 C 180 270 195 270 200 270 C 205 270 220 270 220 250 L 220 130" stroke="#E84819" stroke-width="10" stroke-linecap="round" fill="none"/>
+      <path d="M 200 270 L 200 320" stroke="#E84819" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 225 120 C 225 120 250 120 250 160 C 250 200 225 210 225 210 L 225 320" stroke="#E84819" stroke-width="10" stroke-linecap="round" fill="none"/>
+      <path d="M 270 280 C 300 230 330 200 345 190" stroke="#E84819" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 290 248 C 270 235 275 215 295 220 C 315 225 305 245 290 248 Z" fill="#E84819"/>
+      <path d="M 315 210 C 300 190 310 175 328 185 C 345 195 330 215 315 210 Z" fill="#E84819"/>
+      <circle cx="348" cy="170" r="10" fill="#E84819"/>
+      <path d="M 140 210 Q 250 210 360 280" stroke="#E84819" stroke-width="10" fill="none"/>
+      <path d="M 140 280 Q 250 290 360 210" stroke="#E84819" stroke-width="10" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="company-info">
+    <h1 class="company-name">Creative Catering</h1>
+    <div class="company-tagline">Servicii Premium de Catering</div>
+    <p class="company-description">
+      Experiențe culinare deosebite pentru evenimente private și corporate în Cluj-Napoca și împrejurimi.
+    </p>
+  </div>
+
+  <div class="actions-grid">
+    <button class="btn-action btn-primary" onclick="downloadVCard()">
+      <i class="fa-solid fa-user-plus"></i> Salvează în Contacte
+    </button>
+    <a href="tel:+40700000000" class="btn-action btn-secondary">
+      <i class="fa-solid fa-phone"></i> Apelează
+    </a>
+    <a href="https://wa.me/40700000000" class="btn-action btn-secondary" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+  </div>
+
+  <div class="contacts-list">
+    <a href="mailto:office@creativecatering.ro" class="contact-item">
+      <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+      <div class="contact-details">
+        <span class="contact-label">Email</span>
+        <span class="contact-value">office@creativecatering.ro</span>
+      </div>
+    </a>
+
+    <a href="https://creativecatering.ro" target="_blank" class="contact-item">
+      <div class="contact-icon"><i class="fa-solid fa-globe"></i></div>
+      <div class="contact-details">
+        <span class="contact-label">Website</span>
+        <span class="contact-value">www.creativecatering.ro</span>
+      </div>
+    </a>
+
+    <div class="contact-item">
+      <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+      <div class="contact-details">
+        <span class="contact-label">Locație</span>
+        <span class="contact-value">Cluj-Napoca, România</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="qr-section">
+    <div class="qr-title">Scanează pentru a distribui</div>
+    <div id="qrcode"></div>
+  </div>
+
+  <div class="footer">
+    &copy; Creative Catering - Toate drepturile rezervate
+  </div>
+</div>
+
+<script>
+  // Generare automatica QR Code cu URL-ul curent
+  window.onload = function() {
+    new QRCode(document.getElementById("qrcode"), {
+      text: window.location.href,
+      width: 140,
+      height: 140,
+      colorDark : "#E84819",
+      colorLight : "#ffffff",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+  };
+
+  // Functie pentru descarcare vCard (.vcf)
+  function downloadVCard() {
+    const vcardData = `BEGIN:VCARD
+VERSION:3.0
+FN:Creative Catering
+ORG:Creative Catering
+TITLE:Servicii de Catering
+TEL;TYPE=CELL:+40700000000
+EMAIL:office@creativecatering.ro
+URL:https://creativecatering.ro
+ADR;TYPE=WORK:;;Cluj-Napoca;;;Cluj;România
+END:VCARD`;
+
+    const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Creative_Catering.vcf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+</script>
+
+</body>
+</html>
