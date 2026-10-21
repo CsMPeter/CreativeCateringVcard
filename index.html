@@ -76,7 +76,7 @@
       justify-content: center;
     }
 
-    .logo-container img, .logo-container svg {
+    .logo-container img {
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -252,9 +252,10 @@
 <div class="container">
   <div class="header-banner"></div>
   
- <div class="logo-container">
-    <!-- Itt adhatod meg a source fájlt (pl. logo.svg, images/logo.svg stb.) -->
-    <img src="file:///C:/Users/Peter/Downloads/Creative%20catering_Creative%20catering_2%20.png" alt="Creative Catering Logo">
+  <!-- LOGÓ MÓDOSÍTÁSA ITT -->
+  <div class="logo-container">
+    <!-- Írd át a logo.png-t a saját fájlod nevére (pl. logo.svg) -->
+    <img src="C:\Users\Peter\Downloads" alt="Creative Catering Logo">
   </div>
 
   <div class="company-info">
@@ -314,7 +315,6 @@
 </div>
 
 <script>
-  // Generare automatica QR Code cu URL-ul curent
   window.onload = function() {
     new QRCode(document.getElementById("qrcode"), {
       text: window.location.href,
@@ -326,7 +326,6 @@
     });
   };
 
-  // Functie pentru descarcare vCard (.vcf)
   function downloadVCard() {
     const vcardData = `BEGIN:VCARD
 VERSION:3.0
